@@ -23,9 +23,9 @@ big_rest_time=$((20 * 60))
 big_rest_interval=4
 
 print_center() {
-    line_offset=$1
-    content=$2
-    base_width=36
+    local line_offset=$1
+    local content=$2
+    local base_width=36
 
     y=$(( ($LINES / 2) + $line_offset ))
     x=$(( ($COLUMNS - $base_width) / 2 ))
@@ -38,9 +38,9 @@ stdout_time() {
         return
     fi
 
-    min=$(( $1 / 60 ))
-    sec=$(( $1 % 60 ))
-    text_str=$(printf "\033[1;32m[ TIME   ]\033[0m %02d:%02d  [q:終了]" "$min" "$sec")
+    local min=$(( $1 / 60 ))
+    local sec=$(( $1 % 60 ))
+    local text_str=$(printf "\033[1;32m[ TIME   ]\033[0m %02d:%02d  [q:終了]" "$min" "$sec")
     print_center 1 "$text_str"
     if read -t 1 -n 1 -s key 2>/dev/null; then
         if [ "$key" = "q" ]; then
