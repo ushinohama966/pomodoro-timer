@@ -3,7 +3,6 @@
 clear
 
 trap 'printf "\033[?25h\033[0m"; exit 1' 2
-trap 'printf "\033[?25h\033[0m";' EXIT
 trap '
     if [ -n "$PLAYER_PID" ]; then
         kill "$PLAYER_PID" 2>/dev/null
@@ -40,13 +39,9 @@ stdout_time() {
 
     local min=$(( $1 / 60 ))
     local sec=$(( $1 % 60 ))
-    local text_str=$(printf "\033[1;32m[ TIME   ]\033[0m %02d:%02d  [q:終了]" "$min" "$sec")
+    local text_str=$(printf "\033[1;32m[ TIME   ]\033[0m %02d:%02d" "$min" "$sec")
     print_center 1 "$text_str"
-    if read -t 1 -n 1 -s key 2>/dev/null; then
-        if [ "$key" = "q" ]; then
-            exit 0
-        fi
-    fi
+    sleep 1
     stdout_time $(($1 - 1))
 }
 
